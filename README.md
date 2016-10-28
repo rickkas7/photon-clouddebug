@@ -74,7 +74,7 @@ connected to the cloud!
 0000011532:DEBUG: int read_packet_and_dispose(tcp_packet_t&, void*, int, wiced_tcp_socket_t*, int) (792):Socket 0 receive bytes 2 of 18
 ```
 
-The source to here so you can see how it works, but you kind of have to have a gcc-arm local development environment to get the system debug feature.
+The source code is [here](https://github.com/rickkas7/photon-clouddebug/blob/master/clouddebug.cpp) so you can see how it works, but you kind of have to have a gcc-arm local development environment to get the system debug feature.
 
 ## Prerequisites 
 
@@ -87,7 +87,7 @@ The source to here so you can see how it works, but you kind of have to have a g
 
 Because both debug system firmware and user firmware are required to get full debugging information, and downloading and installing all three pieces manually is a pain, I have a combined binary that contains all three parts in a single file.
 
-(Technical note: This is actually system-part1, system-part2 (0.5.3) and the user firmware binary concatenated into a single file. It's not a monolithic binary, so you can actually flash new user firmware on top of it.)
+> Technical note: This is actually system-part1, system-part2 (0.5.3) and the user firmware binary concatenated into a single file. It's not a monolithic binary, so you can actually flash new user firmware on top of it at 0x80A0000 and it will work properly.
 
 Download the [combined.bin](https://github.com/rickkas7/photon-clouddebug/raw/master/combined.bin) file.
 
