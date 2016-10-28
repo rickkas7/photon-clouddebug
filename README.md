@@ -89,7 +89,7 @@ Because both debug system firmware and user firmware are required to get full de
 
 (Technical note: This is actually system-part1, system-part2 (0.5.3) and the user firmware binary concatenated into a single file. It's not a monolithic binary, so you can actually flash new user firmware on top of it.)
 
-Download the combined.bin file.
+Download the [combined.bin](https://github.com/rickkas7/photon-clouddebug/raw/master/combined.bin) file.
 
 Put the Photon in DFU mode (blinking yellow) by pressing RESET and SETUP. Release RESET and continue to hold down SETUP while the LED blinks magenta until it blinks yellow, then release SETUP.
 
