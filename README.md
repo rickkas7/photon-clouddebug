@@ -1,6 +1,6 @@
-# Photon Cloud Debug
+# Photon and P1 Cloud Debug
 
-*Special code for debugging cloud connection issues with the Particle Photon*
+*Special code for debugging cloud connection issues with the Particle Photon and P1*
 
 ## What is this?
 
@@ -78,16 +78,15 @@ The source code is [here](https://github.com/rickkas7/photon-clouddebug/blob/mas
 
 ## Prerequisites 
 
-- This only works with the Photon!
 - You should have the [Particle CLI](https://docs.particle.io/guide/tools-and-features/cli/photon/) installed
-- You must have a working dfu-util
+- You must have a working dfu-util or JTAG/SWD programmer
 
 
-## To Install
+## To Install - Photon
 
 Because both debug system firmware and user firmware are required to get full debugging information, and downloading and installing all three pieces manually is a pain, I have a combined binary that contains all three parts in a single file.
 
-> Technical note: This is actually system-part1, system-part2 (0.5.3) and the user firmware binary concatenated into a single file. It's not a monolithic binary, so you can actually flash new user firmware on top of it at 0x80A0000 and it will work properly.
+> Technical note: This is actually system-part1, system-part2 (0.5.3) and the user firmware binary concatenated, with some padding, into a single file. It's not a monolithic binary, so you can actually flash new regular (modular) user firmware on top of it at 0x80A0000 or even OTA and it will work properly.
 
 Download the [combined.bin](https://github.com/rickkas7/photon-clouddebug/raw/master/combined.bin) file.
 
@@ -105,6 +104,34 @@ The Photon will restart. Immediately open a serial window. For example, using th
 particle serial monitor
 ```
 
+## To Install - P1 (with USB)
+
+Download the [combined-p1.bin](https://github.com/rickkas7/photon-clouddebug/raw/master/combined-p1.bin) file.
+
+Put the Photon in DFU mode (blinking yellow) by pressing RESET and SETUP. Release RESET and continue to hold down SETUP while the LED blinks magenta until it blinks yellow, then release SETUP.
+
+Issue the command:
+
+```
+dfu-util -d 2b04:d008 -a 0 -s 0x8020000:leave -D combined-p1.bin
+```
+
+The Photon will restart. Immediately open a serial window. For example, using the CLI:
+
+```
+particle serial monitor
+```
+
+## To Install - P1 (using JTAG and Serial1)
+
+Download the [combined-p1ser1.bin](https://github.com/rickkas7/photon-clouddebug/raw/master/combined-p1ser1.bin) file.
+
+Program and verify the binary using JTAG/SWD to address 0x8020000.
+
+Connect the TX pin to something than receive the serial data at 9600 baud 8N1.
+
+Reset the P1. The debugging information will be sent out Serial1.
+
 
 ## To Remove
 
@@ -121,7 +148,3 @@ Enter DFU (blinking yellow) mode again, then:
 ```
 particle update
 ```
-
-
-
-
