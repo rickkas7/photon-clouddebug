@@ -74,12 +74,51 @@ connected to the cloud!
 0000011532:DEBUG: int read_packet_and_dispose(tcp_packet_t&, void*, int, wiced_tcp_socket_t*, int) (792):Socket 0 receive bytes 2 of 18
 ```
 
-The source code is [here](https://github.com/rickkas7/photon-clouddebug/blob/master/clouddebug.cpp) so you can see how it works, but you kind of have to have a gcc-arm local development environment to get the system debug feature.
+The source code is [here](https://github.com/rickkas7/photon-clouddebug/blob/master/clouddebug.cpp) so you can see how it works, but you kind of have to have a gcc-arm local development environment to get the full system debug feature. 
+
+With system firmware 0.6.0 or later, however, you can get a subset of the system logs with normal system firmware, but sometimes that's enough information.
 
 ## Prerequisites 
 
 - You should have the [Particle CLI](https://docs.particle.io/guide/tools-and-features/cli/photon/) installed
 - You must have a working dfu-util or JTAG/SWD programmer
+
+## Easy Debugging - Photon (0.6.0 or later)
+
+If you have system firmware 0.6.0 or later installed, it includes some system debugging even in the released version so often you can get enough debugging info without having to install the special system firmware below. 
+
+Download the [clouddebug.cpp](https://github.com/rickkas7/photon-clouddebug/blob/master/clouddebug.cpp) file.
+
+```
+particle compile photon clouddebug.cpp --saveTo clouddebug.bin
+particle flash --usb clouddebug.bin
+```
+
+The output looks something like:
+
+```
+0000008028 [system] INFO: ARM_WLAN_WD 2
+0000008028 [hal.wlan] INFO: Bringing WiFi interface up with DHCP
+0000010040 [system] INFO: CLR_WLAN_WD 1, DHCP success
+connected to WiFi!
+localIP=192.168.2.180
+subnetMask=255.255.255.0
+gatewayIP=192.168.2.1
+dnsServerIP=0.0.0.0 (often 0.0.0.0)
+dhcpServerIP=0.0.0.0 (often 0.0.0.0)
+ping gateway=1
+ping addr 8.8.8.8=1
+device.spark.io=54.173.1.44
+connected to device server CoAP (testing connection only)
+connecting to cloud
+0000010114 [system] INFO: Cloud: connecting
+0000010118 [system] INFO: Resolved host device.spark.io to 54.173.1.44
+0000010152 [system] INFO: connected to cloud 54.173.1.44:5683
+0000010152 [system] INFO: Cloud socket connected
+0000010505 [comm] INFO: Hanshake: completed
+0000010507 [system] INFO: Cloud connected
+connected to the cloud!
+```
 
 
 ## To Install - Photon
@@ -143,8 +182,9 @@ Put the Photon in DFU mode (blinking yellow) by pressing RESET and SETUP. Releas
 particle flash --usb tinker
 ```
 
-Enter DFU (blinking yellow) mode again, then:
+If you flashed the combined.bin file, also enter DFU (blinking yellow) mode again, then:
 
 ```
 particle update
 ```
+
