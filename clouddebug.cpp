@@ -5,9 +5,9 @@
 
 // Adds debugging output over Serial USB
 // ALL_LEVEL, TRACE_LEVEL, DEBUG_LEVEL, INFO_LEVEL, WARN_LEVEL, ERROR_LEVEL, PANIC_LEVEL, NO_LOG_LEVEL
-SerialDebugOutput debugOutput(9600, ALL_LEVEL);
+SerialDebugOutput debugOutput(9600, ALL_LEVEL); // Needed for 0.5.3
+// SerialLogHandler logHandler(LOG_LEVEL_TRACE); // Works only in 0.6.0 and later, includes timestamps
 
-// STARTUP(cellular_credentials_set("broadband", "", "", NULL));
 // STARTUP(WiFi.selectAntenna(ANT_INTERNAL));
 
 SYSTEM_MODE(SEMI_AUTOMATIC);
