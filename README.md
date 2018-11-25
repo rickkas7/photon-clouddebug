@@ -1,6 +1,6 @@
-# Photon and P1 Cloud Debug
+# Photon, P1, and Argon Cloud Debug
 
-*Special code for debugging cloud connection issues with the Particle Photon and P1*
+*Special code for debugging cloud connection issues with the Particle Photon, P1, and Argon*
 
 ## What is this?
 
@@ -50,9 +50,38 @@ The source code is [here](https://github.com/rickkas7/photon-clouddebug/blob/mas
 - You should have the [Particle CLI](https://docs.particle.io/guide/tools-and-features/cli/photon/) installed
 - You must have a working dfu-util or JTAG/SWD programmer
 
+## To Install - Argon
+
+Download the [argon.bin](https://github.com/rickkas7/photon-clouddebug/blob/master/argon.bin) file. Click on that link and then the Download button on the page that displays, don't just right click and Save Link As.
+
+Put the Argon in DFU mode (blinking yellow) by holding down RESET and MODE, releasing RESET while continuing to hold down MODE. The main status LED will blink magenta (blue and red at the same time), then yellow. Once blinking yellow, release SETUP.
+
+From a Command Prompt or Terminal window:
+
+```
+particle flash --usb argon.bin
+```
+
+The Argon will restart. Immediately open a serial window. One easy way is to use the Particle CLI:
+
+```
+particle serial monitor
+```
+
+If the Argon goes into safe mode, you may need to upgrade to 0.8.0-rc.25 by USB if you're unable to connect to the cloud.
+
+- Go to the [mesh firmware releases page](https://github.com/particle-iot/firmware/releases/tag/v0.8.0-rc.25-mesh).
+- Download the hybrid .bin file for your device. For example: hybrid-0.8.0-rc.25-argon.bin
+- Put your device into DFU mode (blinking yellow), instructions [here](https://docs.particle.io/tutorials/device-os/led/#dfu-mode-device-firmware-upgrade-).
+- Flash the code:
+
+```html
+particle flash --usb hybrid-0.8.0-rc.25-argon.bin
+```
+
 ## To Install - Photon (0.5.3 or later)
 
-Download the [clouddebug.bin](https://github.com/rickkas7/photon-clouddebug/blob/master/clouddebug.bin) file.
+Download the [clouddebug.bin](https://github.com/rickkas7/photon-clouddebug/blob/master/clouddebug.bin) file. Click on that link and then the Download button on the page that displays, don't just right click and Save Link As.
 
 Put the Photon in DFU mode (blinking yellow) by holding down RESET and SETUP, releasing RESET while continuing to hold down SETUP. The main status LED will blink magenta (blue and red at the same time), then yellow. Once blinking yellow, release SETUP.
 
