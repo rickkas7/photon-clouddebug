@@ -47,16 +47,24 @@ The source code is [here](https://github.com/rickkas7/photon-clouddebug/blob/mas
 
 ## Prerequisites 
 
-- You should have the [Particle CLI](https://docs.particle.io/guide/tools-and-features/cli/photon/) installed
-- You must have a working dfu-util or JTAG/SWD programmer
+- You should have the [Particle CLI](https://docs.particle.io/guide/tools-and-features/cli/photon/) version 1.49.0 or later installed.
+- To update the CLI, use the command: `particle update-cli`.
 
 ## To Install - Argon
 
-Download the [argon.bin](https://github.com/rickkas7/photon-clouddebug/blob/master/argon.bin) file. Click on that link and then the Download button on the page that displays, don't just right click and Save Link As.
+If your Argon is not running Device OS 1.4.2 or later you should upgrade. If you're not sure, it doesn't hurt to do this step:
 
 Put the Argon in DFU mode (blinking yellow) by holding down RESET and MODE, releasing RESET while continuing to hold down MODE. The main status LED will blink magenta (blue and red at the same time), then yellow. Once blinking yellow, release SETUP.
 
 From a Command Prompt or Terminal window:
+
+```
+particle update
+```
+
+Download the [argon.bin](https://github.com/rickkas7/photon-clouddebug/blob/master/argon.bin) file. Click on that link and then the Download button on the page that displays, don't just right click and Save Link As.
+
+If device is not blinking yellow, repeat the steps above to put it back in DFU mode, then:
 
 ```
 particle flash --usb argon.bin
@@ -68,27 +76,22 @@ The Argon will restart. Immediately open a serial window. One easy way is to use
 particle serial monitor
 ```
 
-If the Argon goes into safe mode, you may need to upgrade to 0.8.0-rc.25 by USB if you're unable to connect to the cloud.
+## To Install - Photon
 
-- Go to the [mesh firmware releases page](https://github.com/particle-iot/firmware/releases/tag/v0.8.0-rc.25-mesh).
-- Download the hybrid .bin file for your device. For example: hybrid-0.8.0-rc.25-argon.bin
-- Put your device into DFU mode (blinking yellow), instructions [here](https://docs.particle.io/tutorials/device-os/led/#dfu-mode-device-firmware-upgrade-).
-- Flash the code:
-
-```html
-particle flash --usb hybrid-0.8.0-rc.25-argon.bin
-```
-
-## To Install - Photon (0.5.3 or later)
-
-Download the [clouddebug.bin](https://github.com/rickkas7/photon-clouddebug/blob/master/clouddebug.bin) file. Click on that link and then the Download button on the page that displays, don't just right click and Save Link As.
-
-Put the Photon in DFU mode (blinking yellow) by holding down RESET and SETUP, releasing RESET while continuing to hold down SETUP. The main status LED will blink magenta (blue and red at the same time), then yellow. Once blinking yellow, release SETUP.
+Put the Photon in DFU mode (blinking yellow) by holding down RESET and MODE, releasing RESET while continuing to hold down MODE. The main status LED will blink magenta (blue and red at the same time), then yellow. Once blinking yellow, release SETUP.
 
 From a Command Prompt or Terminal window:
 
 ```
-particle flash --usb clouddebug.bin
+particle update
+```
+
+Download the [photon.bin](https://github.com/rickkas7/photon-clouddebug/blob/master/photon.bin) file. Click on that link and then the Download button on the page that displays, don't just right click and Save Link As.
+
+If device is not blinking yellow, repeat the steps above to put it back in DFU mode, then:
+
+```
+particle flash --usb photon.bin
 ```
 
 The Photon will restart. Immediately open a serial window. One easy way is to use the Particle CLI:
@@ -100,7 +103,7 @@ particle serial monitor
 If you prefer to compile the binary yourself:
 
 ```
-particle compile photon clouddebug.cpp --target 0.5.3 --saveTo clouddebug.bin
+particle compile photon clouddebug.cpp --target 0.4.2 --saveTo photon.bin
 ```
 
 If after restart the Photon blinks magenta again, then goes through a sequence of blinking green, blinking cyan (if may not get all the way through the sequence), you may need to upgrade the device system firmware.
